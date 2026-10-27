@@ -28,6 +28,9 @@ describe('languageForPath', () => {
     ['flake.nix', 'nix'], ['App.vue', 'vue'], ['App.svelte', 'svelte'],
     ['Makefile', undefined], ['build.mk', 'make'], ['CMakeLists.cmake', 'cmake'],
     ['build.gradle', 'groovy'],
+    // CUDA sources share the cpp grammar so they reach the code preview, which
+    // numbers lines, instead of the plain-text fallback, which does not.
+    ['decoder.cu', 'cpp'], ['attn.cuh', 'cpp'],
   ])('resolves %s to %s', (path, language) => {
     expect(languageForPath(path)).toBe(language)
   })
@@ -98,6 +101,7 @@ describe('readLangHintForPath', () => {
     expect(readLangHintForPath('src/a.jsonc')).toBe('json')
     expect(readLangHintForPath('src/a.cc')).toBe('cpp')
     expect(readLangHintForPath('src/a.hpp')).toBe('cpp')
+    expect(readLangHintForPath('src/a.cuh')).toBe('cpp')
     expect(readLangHintForPath('src/a.sh')).toBe('sh')
     expect(readLangHintForPath('src/a.kt')).toBe('kotlin')
     expect(readLangHintForPath('README.md')).toBe('md')
