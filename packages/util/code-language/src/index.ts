@@ -40,7 +40,9 @@ const LANGUAGE_EXTENSIONS: Readonly<Record<string, readonly string[]>> = {
   rust: ['rs'],
   java: ['java'],
   c: ['c', 'h'],
-  cpp: ['cc', 'cpp', 'cxx', 'hh', 'hpp', 'hxx'],
+  // CUDA sources borrow the cpp grammar: the highlighter registers no cuda grammar,
+  // and an unlisted suffix would send them to the gutterless plain-text viewer.
+  cpp: ['cc', 'cpp', 'cxx', 'hh', 'hpp', 'hxx', 'cu', 'cuh'],
   csharp: ['cs'],
   kotlin: ['kt', 'kts'],
   swift: ['swift'],
